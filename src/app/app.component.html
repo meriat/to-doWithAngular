@@ -1,7 +1,27 @@
-
+<h1 class="jumbotron">Welcome, {{userInput}}</h1>
+<div class="container">
+<form>
+  <label for="user"><i>Current User:</i></label>
+  <input [(ngModel)]="userInput" type="text" name="user">
+</form>
+<hr>
   <h1>To Do List for {{month}}/{{day}}/{{year}}</h1>
   <h3>{{currentFocus}}</h3>
   <ul>
-    <li [class]="priorityColor(currentTask)" *ngFor= "let currentTask of tasks">{{currentTask.description}} <button (click)="editTask()">Edit!</button></li>
+    <li [class]="priorityColor(currentTask)" *ngFor= "let currentTask of tasks">{{currentTask.description}} <button (click)="editTask(currentTask)">Edit!</button></li>
   </ul>
-
+<hr>
+<div *ngIf="selectedTask">
+  <h3>{{selectedTask.description}}</h3>
+  <p>task Complete? {{selectedTask.done}}</p>
+  <hr>
+  <h3>Edit Task</h3>
+  <input [(ngModel)]="selectedTask.description">
+  <label>Enter Task Priority (1-3)</label>
+  <br>
+  <input type="radio" [(ngModel)]="selectedTask.priority" [value]="1">1 (Low Priority)<br>
+  <input type="radio" [(ngModel)]="selectedTask.priority" [value]="2">2 (Medium Priority)<br>
+  <input type="radio" [(ngModel)]="selectedTask.priority" [value]="3">3 (High Priority)<br>
+  <button (click)="finishedEditing()">Done</button>
+</div>
+</div>
